@@ -7,7 +7,8 @@ module.exports = {
   mode: isProd ? 'production' : 'development',
   entry: {
     jiti: './src/jiti.ts',
-    babel: './src/babel.ts'
+    babel: './src/babel.ts',
+    sucrase: './src/sucrase.ts'
   },
   devtool: false,
   output: {
@@ -17,22 +18,25 @@ module.exports = {
     libraryExport: 'default'
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.tsx', '.ts', '.js', '.mjs'],
     alias: {
       '@babel/code-frame': require.resolve('./stubs/babel_codeframe'),
       '@babel/helper-compilation-targets': require.resolve('./stubs/helper_compilation_targets')
     }
   },
-  stats: {
-    // preset: 'detailed',
-    warningsFilter: [/critical dependency:/i]
-  },
+  ignoreWarnings: [/critical dependency:/i],
   module: {
     rules: [
       {
         test: /\.ts$/,
         use: 'ts-loader',
         exclude: /node_modules/
+      },
+      {
+        test: /\.m?js/,
+        resolve: {
+          fullySpecified: false
+        }
       }
     ]
   },

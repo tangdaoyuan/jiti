@@ -24,5 +24,6 @@ export type JITIOptions = {
   onError?: (error: Error) => void
   legacy?: boolean
   extensions?: string[]
+  transformer?: 'babel' | 'sucrase'
   transformOptions?: Omit<TransformOptions, 'source'>
 }
